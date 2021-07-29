@@ -13,7 +13,7 @@ def hello():
 
     # Check if 'arr' prop exists
     if 'arr' not in content:
-        return jsonify({"error": "'arr' prop is missing"}), 400
+        return generateError("'arr' prop is missing"), 400
 
     arr = content['arr']
 
@@ -24,6 +24,9 @@ def hello():
             a = getIndexOfEquilibrium(arr)
             return jsonify({"index":a})
         else:
-            return jsonify({"error": "only integer numbers are allowed"}), 400
+            return generateError("only integer numbers are allowed"), 400
     else:
-        return jsonify({"error": "array is expected"}), 400
+        return generateError("array is expected"), 400
+
+def generateError(msg):
+    return jsonify({"error": msg})
