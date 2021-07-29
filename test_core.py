@@ -8,6 +8,7 @@ app.testing = True
 
 class TestApi(unittest.TestCase):
 
+    # Check if statusCode return is correctly when array is OK
     def test_start(self):
         with app.test_client() as client:
             result = client.post(
@@ -16,6 +17,7 @@ class TestApi(unittest.TestCase):
             )
             self.assertEqual(200, result.status_code)
 
+    # Check if the { "arr" } prop exists
     def test_missing_arguments(self):
         with app.test_client() as client:         
             result = client.post(
@@ -24,6 +26,7 @@ class TestApi(unittest.TestCase):
             )
             self.assertEqual(400, result.status_code)
 
+    # Check if array is valid (array of numbers)
     def test_invalid_array(self):
         with app.test_client() as client:
             result = client.post(
@@ -32,6 +35,7 @@ class TestApi(unittest.TestCase):
             )
             self.assertEqual(400, result.status_code)
 
+    # Check the equilibrium index on a big array
     def test_big_array_has_index(self):
         with app.test_client() as client:
             big_array = np.ones(99999, dtype=int).tolist()
@@ -42,6 +46,7 @@ class TestApi(unittest.TestCase):
             )
             self.assertEqual(49999, json.loads(result.data)['index'])
 
+    # Check when an equilibrium index does not exist
     def test_array_no_index(self):
         with app.test_client() as client:
             big_array = np.ones(100,dtype=int).tolist()
