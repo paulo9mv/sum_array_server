@@ -16,7 +16,10 @@ def hello():
     arr = content['arr']
 
     if isinstance(arr, list):
-        a = getIndexOfEquilibrium(arr)
-        return jsonify({"index":a})
+        if all(isinstance(elem, int) for elem in arr):
+            a = getIndexOfEquilibrium(arr)
+            return jsonify({"index":a})
+        else:
+            return jsonify({"error": "only integer numbers are allowed"}), 400
     else:
         return jsonify({"error": "array is expected"}), 400
