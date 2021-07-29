@@ -13,7 +13,9 @@ def hello():
 
     # Check if 'arr' prop exists
     if 'arr' not in content:
-        return generateError("'arr' prop is missing"), 400
+        response = generateError("'arr' prop is missing")
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 400
 
     arr = content['arr']
 
@@ -22,11 +24,18 @@ def hello():
         # Check if 'arr' contains only integers
         if all(isinstance(elem, int) for elem in arr):
             a = getIndexOfEquilibrium(arr)
-            return jsonify({"index":a})
+            response = jsonify({"index":a})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+
+            return response
         else:
-            return generateError("only integer numbers are allowed"), 400
+            response = generateError("only integer numbers are allowed")
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response, 400
     else:
-        return generateError("array is expected"), 400
+        response = generateError("array is expected")
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 400
 
 def generateError(msg):
     return jsonify({"error": msg})
