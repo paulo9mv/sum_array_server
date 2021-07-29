@@ -1,0 +1,6 @@
+
+envpip3/bin/
+
+envpip3/lib/python3.8/site-packages/flask/__pycache__/
+
+envpip3/lib/python3.8/site-packages/itsdangerous/
