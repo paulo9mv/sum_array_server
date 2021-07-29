@@ -6,7 +6,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/equilibrium', methods=['patch'])
+@app.route('/equilibrium', methods=['POST'])
 @cross_origin()
 def hello():
     content = request.json
