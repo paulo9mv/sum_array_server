@@ -10,12 +10,16 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def hello():
     content = request.json
+
+    # Check if 'arr' prop exists
     if 'arr' not in content:
         return jsonify({"error": "'arr' prop is missing"}), 400
 
     arr = content['arr']
 
+    # Check if 'arr' is a list
     if isinstance(arr, list):
+        # Check if 'arr' contains only integers
         if all(isinstance(elem, int) for elem in arr):
             a = getIndexOfEquilibrium(arr)
             return jsonify({"index":a})
